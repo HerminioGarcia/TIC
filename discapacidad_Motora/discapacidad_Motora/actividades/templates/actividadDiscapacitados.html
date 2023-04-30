@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block encabezado %}
+    Discapacidad: {{nom_discap_motoras}}
+{% endblock encabezado %}
+    
+
+{% block titulo %}
+    Discapacidad: {{nom_discap_motoras}}
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Discapacidad: {{nom_discap_motoras}} </h1>
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre de la Actividad</th>
+                <th>Discapacidad</th>
+                <th>url</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for actividadDiscapacitado in actividadDiscapacitados  %}
+                <tr>
+                    <td>{{actividadDiscapacitado.nombreActividad}}</td>
+                    <td>{{actividadDiscapacitado.discapacidad}}</td>
+                    <td>{{actividadDiscapacitado.url}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3-">
+                        <p>No hay solicitudes registradas</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}

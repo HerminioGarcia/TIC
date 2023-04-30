@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block encabezado %}
+    Tipo de discapacidades
+{% endblock encabezado %}
+    
+
+{% block titulo %}
+    Tipo de las Discapacidades
+{% endblock titulo %}
+
+{% block contenido %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre de la discapacidad</th>
+                <th>Descripcion</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for discapacidad in object_list  %}
+                <tr>
+                    <td>
+                        Discapacidad {{discapacidad.nombreDisapacidad}}
+                    </td>
+                    <td>
+                        {{discapacidad.descripcion}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" 
+                            href="{% url 'editar_discapacidad' discapacidad.id %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" 
+                            href="{% url 'eliminar_Discapacidad' discapacidad.id %}">
+                            Eliminar
+                        </a>
+                        <a class="btn btn-success" 
+                            href="{% url 'actividad_Lista' discapacidad.id %}">
+                            Actividades
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">
+                        <p>No existen discapacidad registradas</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock contenido %}
