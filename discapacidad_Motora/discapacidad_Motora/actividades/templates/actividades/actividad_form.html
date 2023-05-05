@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado2 %}
+                              
+{% endblock encabezado2 %}
+
+{% block contenido10 %}
+Se utilizaron estas actividades para los familiares,fomentando a un sano vinculo en entre dichos anteriormente.
+{% endblock contenido10 %}
+
+{% block encabezado %}
+    Actividades
+{% endblock encabezado %}
+    
+
+{% block titulo %}
+    Activiedaes
+{% endblock titulo %}
+
+{% block contenido %}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-success" type="submit" value="Guardar">
+        <a class="btn btn-danger" href="{% url 'actividad_Lista' %}">Regresar</a>
+
+    </form>
+    
+    
+{% endblock contenido %}

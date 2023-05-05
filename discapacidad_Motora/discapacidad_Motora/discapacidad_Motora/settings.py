@@ -127,5 +127,33 @@ EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #Es donde se almacenaran los documentos de usuarios
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('bienvenida')
+LOGOUT_REDIRECT_URL = reverse_lazy('login')
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+# Servicio de correo
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+# Se necesita una cuanta google con contraseña de aplicasion
+EMAIL_HOST_USER = 'martinezherminio283@gmail.com'
+EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_SUBJECT_PREFIX = '[My Website]'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'martinezherminio283@gmail.com'
+EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
+DEFAULT_FROM_EMAIL = 'martinezherminio283@gmail.com'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Reset password'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN_SECONDS = 60
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/profile/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/login/'

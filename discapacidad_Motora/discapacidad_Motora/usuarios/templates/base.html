@@ -21,7 +21,8 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" /> <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" />
+
     {% block css %}
     
     {% endblock css %}
@@ -31,25 +32,19 @@
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
-          <a class="navbar-brand brand-logo" href="{% static 'index.html' %}">
-            <img src="{% static 'images/logo.svg' %}" alt="logo" class="logo-dark" />
+          <a class="navbar-brand brand-logo" href="{% url 'bienvenida'%}"> <h1>CAP-HDF</h1> 
           </a>
-          <a class="navbar-brand brand-logo-mini" href="{% static 'index.html'%}"><img src="{% static 'images/logo-mini.svg' %}" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="{% url 'bienvenida'%}"><img src="{% static 'images/logoS.png' %}" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">CAP-HDF</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <form class="search-form d-none d-md-block" action="#">
-              <i class="icon-magnifier"></i>
-              <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+              
+              
             </form>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-chart"></i></a></li>
+
             <li class="nav-item dropdown">
-              <a class="nav-link count-indicator message-dropdown" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <i class="icon-speech"></i>
-                <span class="count">7</span>
-              </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
                 <a class="dropdown-item py-3">
                   <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
@@ -87,20 +82,25 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img class="img-xs rounded-circle ml-2" src="{% static 'images/faces/face8.jpg' %}" alt="Profile image"> <span class="font-weight-normal"> Henry Klein </span></a>
+                <span class="font-weight-normal"> 
+                  {% if request.user.username %}
+                    {{request.user.username}}
+                  {% else %}
+                    <a href="{% url 'login' %}" class="text-primary">Iniciar secion</a>
+                  {% endif %}
+                </span></a>  
+
+              {% if request.user.username %}
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <img class="img-md rounded-circle" src="{% static 'images/faces/face8.jpg' %}" alt="Profile image">
-                  <p class="mb-1 mt-3">Allen Moreno</p>
-                  <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+                  <p class="mb-1 mt-3">{{request.user.username}}</p>
+                  <p class="font-weight-light text-muted mb-0">{{request.user.email}}</p>
                 </div>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a href="{% url 'logout' %}" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Cerrar sesion</a>
               </div>
+              {% endif %}
             </li>
+            
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="icon-menu"></span>
@@ -113,20 +113,40 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
-                <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="{% static 'images/faces/face8.jpg' %}" alt="profile image">
-                  <div class="dot-indicator bg-success"></div>
-                </div>
+              <a class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">Allen Moreno</p>
-                  <p class="designation">Administrator</p>
+                  {% if request.user.username %}
+
+                    {{request.user.username}}
+                    {% for grupo in request.user.groups.all %} 
+                      {% if 'Administrador' in grupo.name %}
+                      <div><p class="designation">(Administrador)</p></div>
+                      {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'logout' %}" class="designation">Cerrar sesion</a>
+                  {% else %}
+                    <a href="{% url 'login' %}" class="designation">Iniciar sesion</a>
+                  {% endif %}
+                  
                 </div>
                 
               </a>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">Opciones del sistema</span></li>
             <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <span class="menu-title">¿Qué es la discapacidad?</span>
+                <i class="icon-doc menu-icon"></i>
+              </a>
+              <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'lista_Discapacidades' %}"> Tipo de discpacidades </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'actividad_Lista' %}"> Actividades </a></li>
+                  
+                </ul>
+              </div>
+            {% for grupo in request.user.groups.all %} 
+              {% if 'Administrador' in grupo.name %}
               <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <span class="menu-title">Discapacidades</span>
                 <i class="icon-doc menu-icon"></i>
@@ -135,22 +155,49 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="{% url 'lista_Discapacidades' %}"> Tipo de discpacidades </a></li>
                   <li class="nav-item"> <a class="nav-link" href="{% url 'nueva_discapacidad' %}"> Nueva discapacidad </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{% static 'pages/samples/register.html' %}"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{% static 'pages/samples/login.html' %}"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{% static 'pages/samples/error-404.html' %}"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{% static 'pages/samples/error-500.html' %}"> 500 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{% static 'pages/samples/blank-page.html' %}"> Blank Page </a></li>
+                  
+                </ul>
+              </div>
+              <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <span class="menu-title">Actividades</span>
+                <i class="icon-doc menu-icon"></i>
+              </a>
+              <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'actividad_Lista' %}"> Lista de actividades </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'nueva_actividad' %}"> Nueva Actividad </a></li>
+                  
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <span class="menu-title">Usuarios</span>
+                <i class="icon-doc menu-icon"></i>
+              </a>
+              <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'lista' %}"> Usuarios del sistema </a></li>
+                </ul>
+              </div>
+            </li>
+              {% endif %}
+            {% endfor %}
+            
           </ul>
         </nav>
         <!-- partial -->
         <div class="main-panel">
+
+
+
+          
           <div class="content-wrapper">
             <div class="row">
               <div class="col-md-12 grid-margin">
                 <div class="card">
+                  {% block encabe %}
+                  {% endblock encabe %} 
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-12">

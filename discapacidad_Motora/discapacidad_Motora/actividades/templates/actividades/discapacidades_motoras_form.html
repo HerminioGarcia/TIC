@@ -2,19 +2,19 @@
 {% load static %}
 
 {% block encabezado %}
-    Nueva discapacidad
+    Discapacidad
 {% endblock encabezado %}
     
 
 {% block titulo %}
-    Nueva discapacidad
+    Discapacidad
 {% endblock titulo %}
 
 {% block contenido %}
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input class="btn btn-success" type="submit" value="Actualizar">
+        <input class="btn btn-success" type="submit" value="Guardar">
         <a class="btn btn-danger" href="{% url 'lista_Discapacidades' %}">Regresar</a>
 
     </form>

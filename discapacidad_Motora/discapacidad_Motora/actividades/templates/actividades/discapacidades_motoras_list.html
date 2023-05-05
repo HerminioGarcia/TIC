@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 
+{% block encabe %}
+<div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="d-sm-flex align-items-baseline report-summary-header">
+          <h3 class="font-weight-semibold">
+            ¿Definición sobre que es una discapacidad?       
+          </h3> <span class="ml-auto">
+        </div>
+      </div>
+    </div>
+    <div class="row report-inner-cards-wrapper">
+        La OMS define a la discapacidad como “alguna limitación o impedimento de la capacidad de llevar a cabo una actividad en la forma o dentro del margen que se considera normal para el ser humano.
+  </div>              
+{% endblock encabe %}
 
 {% block encabezado %}
     Tipo de discapacidades
 {% endblock encabezado %}
-    
 
 {% block titulo %}
     Tipo de las Discapacidades
@@ -15,7 +29,6 @@
         <thead>
             <tr>
                 <th>Nombre de la discapacidad</th>
-                <th>Descripcion</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -26,21 +39,23 @@
                         Discapacidad {{discapacidad.nombreDisapacidad}}
                     </td>
                     <td>
-                        {{discapacidad.descripcion}}
-                    </td>
-                    <td>
+                        {% for grupo in request.user.groups.all %} 
+                            {% if 'Administrador' in grupo.name %}
+                                <a class="btn btn-success" 
+                                    href="{% url 'editar_discapacidad' discapacidad.id %}">
+                                    Editar
+                                </a>
+                                <a class="btn btn-danger" 
+                                    href="{% url 'eliminar_Discapacidad' discapacidad.id %}">
+                                    Eliminar
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                         <a class="btn btn-success" 
-                            href="{% url 'editar_discapacidad' discapacidad.id %}">
-                            Editar
-                        </a>
-                        <a class="btn btn-danger" 
-                            href="{% url 'eliminar_Discapacidad' discapacidad.id %}">
-                            Eliminar
-                        </a>
-                        <a class="btn btn-success" 
-                            href="{% url 'actividad_Lista' discapacidad.id %}">
-                            Actividades
-                        </a>
+                                    href="{% url 'editar_discapacidad' discapacidad.id %}">
+                                    Editar
+                                </a>
+                        
                     </td>
                 </tr>
             {% empty %}
