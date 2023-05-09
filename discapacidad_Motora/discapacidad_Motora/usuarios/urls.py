@@ -7,12 +7,12 @@ from django.contrib.auth import views as auth_views
 #app_name = 'usuarios'
 urlpatterns = [
     # Bienbenida del sitio
-    path('', views.BienvenidaView.as_view(), name='bienvenida'),
-    path('salir', LogoutView.as_view(), name='logout'),
+    path('', login_required(views.BienvenidaView.as_view()), name='bienvenida'),
+    path('salir', login_required(LogoutView.as_view()), name='logout'),
     path('entrar', views.LoginView.as_view(), name='login'),
     path('registrar', views.RegistrarView.as_view(), name='registrar'),
-    path('lista', views.ListaUsuariosView.as_view(), name='lista'),
-    path('grupos', views.asignar_grupos, name='asignar_grupos'),
+    path('lista', login_required(views.ListaUsuariosView.as_view()), name='lista'),
+    path('grupos', login_required(views.asignar_grupos), name='asignar_grupos'),
     path('activar/<slug:uidb64>/<slug:token>', views.ActivarCuentaView.as_view(), name='activar'),
     path('eliminar/<int:id>', views.eliminar_usuario, name='eliminar_usuario2'),
     

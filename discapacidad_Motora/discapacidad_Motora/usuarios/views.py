@@ -101,6 +101,7 @@ def eliminar_usuario(request, id):
     User.objects.get(id=id).delete()
     return redirect('lista')
 
+@login_required
 def asignar_grupos(request):
     id_usuario = request.POST.get('usuario', None)
     
