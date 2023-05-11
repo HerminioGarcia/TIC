@@ -96,6 +96,15 @@
                   <p class="mb-1 mt-3">{{request.user.username}}</p>
                   <p class="font-weight-light text-muted mb-0">{{request.user.email}}</p>
                 </div>
+                {% if user.datos.curp %}
+                  <h3 class="dropdown-item">
+                    <a href="{% url 'perfilEditar' %}" class="dropdown-item">Editar Perfil</a>
+                  </h3>   
+                {% else %}
+                  <h3 class="dropdown-item">
+                    <a href="{% url 'perfil' %}" class="dropdown-item">Crear Perfil</a>
+                  </h3>
+                {% endif %}
                 <a href="{% url 'logout' %}" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Cerrar sesion</a>
               </div>
               {% endif %}

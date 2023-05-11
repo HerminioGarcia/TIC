@@ -17,20 +17,6 @@ class FormDiscapacidades_motoras(forms.ModelForm):
             'referencias': forms.Textarea(attrs={'class':'form-control'}),
         }
 
-#class FormDiscapacidadEditar(FormDiscapacidades_motoras):
-#    class Meta:
-#        exclude = []
-#        model = Discapacidades_motoras
-#        fields = '__all__'
-#        widgets = {
-#            'nombreDisapacidad': forms.TextInput(attrs={'class':'form-control'}),
-#            'descripcion': forms.Textarea(attrs={'class':'form-control'}),
-#            'que_es':forms.Textarea(attrs={'class':'form-control'}),
-#            'que_deve_conocer_familia':forms.Textarea(attrs={'class':'form-control'}),
-#            'documentacion':forms.FileInput(attrs={'class':'form-control'}),
-#            'recomendaciones':forms.Textarea(attrs={'class':'form-control'}),
-#            'referencias': forms.Textarea(attrs={'class':'form-control'}),
-#        }
 
 class FormDiscapacidadEditar(FormDiscapacidades_motoras):
     class Meta:

@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView,UpdateView
 from django.contrib.auth.models import User, Group
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
@@ -18,8 +18,8 @@ from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
-
-from .forms import UserForm
+from .models import DatosPersonales
+from .forms import FormDatosPersonales, UserForm
 from .token import token_activacion
 
 class BienvenidaView(TemplateView):
@@ -126,3 +126,30 @@ def reset_password(request):
     else:
         form = PasswordResetForm()
     return render(request, 'registration/reset_password.html', {'form': form})
+
+class CrearPerfilView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
+    model=DatosPersonales
+    form_class = FormDatosPersonales
+    success_url = reverse_lazy('bienvenida')
+    success_message = "Datos guardados de manera exitosa"
+
+    def form_valid(self, form):
+        datos_personales = form.save(commit=False)
+        datos_personales.user = self.request.user
+        datos_personales.save()
+        
+        return super().form_valid(form)
+
+class EditarPerfilView(LoginRequiredMixin,UpdateView):
+    model=DatosPersonales
+    form_class = FormDatosPersonales
+    extra_context = {'accion':'Editar'}
+    success_url = reverse_lazy('bienvenida')
+    success_message = "Datos guardados de manera exitosa"
+
+    def dispatch(self,request,*args,**kwargs):
+        self.object=self.get_object()
+        return super().dispatch(request,*args,**kwargs)
+
+    def get_object(self,queryset=None):
+        return self.request.user.datos
