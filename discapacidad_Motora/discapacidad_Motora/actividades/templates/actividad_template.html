@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+    <h1>Actividad {{nom_activ}}</h1> 
+{% endblock encabezado %}
+    
+
+{% block titulo %}
+    Actividad {{nom_activ}}
+{% endblock titulo %}
+
+{% block contenido %}
+    <div>
+    <h3>
+        Tiempo esperado para esta actividad:<br>
+    </h3>
+
+    Esta actividad puede dura {{ actividad.tempo}} minuto.<br><br>
+
+    <h3>
+        Aprendizajes Esperados:<br>
+    </h3>
+    {{ actividad.aprendizajes_esperados}}<br><br>
+
+    <h3>
+        Aspectos para favorecer:
+<br>
+    </h3>
+    {{ actividad.aspectos_a_favorecer|linebreaksbr}}<br><br>
+
+    <h3>
+        Recursos:<br>
+    </h3>
+    {{ actividad.Recursos|linebreaksbr}}<br><br>
+
+    <h3>
+        Competencias a desarrollar:<br>
+    </h3>
+    {{ actividad.competencias_desarrollar|linebreaksbr}}<br><br>
+
+    <h3>
+        Descripción de la actividad:<br>
+    </h3>
+    {{ actividad.descripción_actividad|linebreaksbr}}<br><br>
+
+    <h3>
+        Video de la actividad:<br>
+    </h3>
+    <div class="video-container">
+        <iframe width="360" height="215" src="{{actividad.url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    {{actividad.url}}<br><br>
+
+    <h3>
+        Referencias:<br>
+    </h3>
+
+    <iframe src="{{ MEDIA_URL }}{{ actividad.referencias.url }}" width="100%" height="500px"></iframe><br><br>
+    <a href="{{ actividad.referencias.url }}">{{actividad.referencias}} </a><br><br>
+    Esta actividad cuenta con {{likes}} likes <br>
+    <a href="{% url 'dar_like' actividad.id %}">
+        
+        {% if tieneL %}
+            <i class="icon-dislike">
+                Dislike
+            </i>
+            
+        {% else %}
+            <i class="icon-like">
+                Like
+            </i>
+            
+        {% endif %}
+    </a>
+
+</div>
+<a href="{% url 'actividad_Lista' %}"> <- Volver a la lista de Actividades </a><br>
+{% endblock contenido %}

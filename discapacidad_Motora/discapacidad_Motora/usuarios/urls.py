@@ -7,7 +7,6 @@ from django.contrib.auth import views as auth_views
 #app_name = 'usuarios'
 urlpatterns = [
     # Bienbenida del sitio
-    path('', login_required(views.BienvenidaView.as_view()), name='bienvenida'),
     path('salir', login_required(LogoutView.as_view()), name='logout'),
     path('entrar', views.LoginView.as_view(), name='login'),
     path('registrar', views.RegistrarView.as_view(), name='registrar'),

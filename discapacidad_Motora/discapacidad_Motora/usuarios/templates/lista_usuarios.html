@@ -41,16 +41,20 @@ Lista de usuarios
                     <td>{{usuario.id}}</td>
                     <td>{{usuario.email}}</td>
                     <td>
-                        <a class="btn btn-danger"   href="{% url 'eliminar_usuario2' usuario.id %}">Eliminar</a>
-                        <button type="button" 
-                            onclick="asignaUsuario('{{usuario.id}}', '{% for g in usuario.groups.all %}{{g.id}}-{% endfor %}')"
-                            class="btn btn-success" 
-                            data-usuario="{{usuario.id}}" 
-                            data-grupos="{% for g in usuario.groups.all %}{{g.id}}-{% endfor %}" 
-                            data-toggle="modal" 
-                            data-target="#modal-grupos">
-                            Grupos
-                        </button>
+                        {% for grupo in request.user.groups.all %} 
+                            {% if 'Administrador' in grupo.name %}
+                                <a class="btn btn-danger"   href="{% url 'eliminar_usuario2' usuario.id %}">Eliminar</a>
+                                <button type="button" 
+                                    onclick="asignaUsuario('{{usuario.id}}', '{% for g in usuario.groups.all %}{{g.id}}-{% endfor %}')"
+                                    class="btn btn-success" 
+                                    data-usuario="{{usuario.id}}" 
+                                    data-grupos="{% for g in usuario.groups.all %}{{g.id}}-{% endfor %}" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-grupos">
+                                    Grupos
+                                </button>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                 </tr>
             {% empty %}

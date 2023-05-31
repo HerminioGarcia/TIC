@@ -22,9 +22,6 @@ from .models import DatosPersonales
 from .forms import FormDatosPersonales, UserForm
 from .token import token_activacion
 
-class BienvenidaView(TemplateView):
-    template_name = 'bienvenida.html'
-
 class LoginView(LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm

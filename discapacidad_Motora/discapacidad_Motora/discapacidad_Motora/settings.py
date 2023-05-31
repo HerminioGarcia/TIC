@@ -13,9 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k2x(g=2#a&0nyzb2nz#47skar=o9#+j_x&7(@822uz=ie1tnc1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,13 +122,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 # Se necesita una cuanta google con contraseña de aplicasion
-EMAIL_HOST_USER = 'martinezherminio283@gmail.com'
-EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
+EMAIL_HOST_USER = 'caphdfa@gmail.com'
+EMAIL_HOST_PASSWORD = 'ivlyfomyekzovmpx'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #Es donde se almacenaran los documentos de usuarios
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('bienvenida')
@@ -141,17 +141,17 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 # Se necesita una cuanta google con contraseña de aplicasion
-EMAIL_HOST_USER = 'martinezherminio283@gmail.com'
-EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
+EMAIL_HOST_USER = 'caphdfa@gmail.com'
+EMAIL_HOST_PASSWORD = 'ivlyfomyekzovmpx'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_SUBJECT_PREFIX = '[My Website]'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'martinezherminio283@gmail.com'
-EMAIL_HOST_PASSWORD = 'itrrnpyuvnozeovx'
-DEFAULT_FROM_EMAIL = 'martinezherminio283@gmail.com'
+EMAIL_HOST_USER = 'caphdfa@gmail.com'
+EMAIL_HOST_PASSWORD = 'ivlyfomyekzovmpx'
+DEFAULT_FROM_EMAIL = 'caphdfa@gmail.com'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Reset password'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN_SECONDS = 60

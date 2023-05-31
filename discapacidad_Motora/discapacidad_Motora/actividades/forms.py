@@ -54,7 +54,7 @@ class FormdiscapacidadActividad(forms.Form):
 class FormActividad(forms.ModelForm):
     class Meta:
         model = Actividad
-        exclude = []
+        fields = '__all__'
         widgets = {
             'nombreActividad' : forms.TextInput(attrs={'class':'form-control'}),
             'tempo': forms.NumberInput(attrs={'class':'form-control'}),
@@ -64,7 +64,7 @@ class FormActividad(forms.ModelForm):
             'competencias_desarrollar':forms.Textarea(attrs={'class':'form-control'}),
             'descripción_actividad':forms.Textarea(attrs={'class':'form-control'}),
             'url' : forms.TextInput(attrs={'class':'form-control'}),
-            'referencias': forms.Textarea(attrs={'class':'form-control'}),
+            
         }
     #def __init__(self, *args, **kwargs):
     #    super().__init__(*args, **kwargs)
@@ -88,7 +88,7 @@ class FormActividad(forms.ModelForm):
 
 class FormActividadEditar(FormActividad):
     class Meta:
-        exclude = []
+        fields = '__all__'
         model = Actividad
         widgets = {
             'nombreActividad' : forms.TextInput(attrs={'class':'form-control'}),
@@ -99,5 +99,4 @@ class FormActividadEditar(FormActividad):
             'competencias_desarrollar':forms.Textarea(attrs={'class':'form-control'}),
             'descripción_actividad':forms.Textarea(attrs={'class':'form-control'}),
             'url' : forms.TextInput(attrs={'class':'form-control'}),
-            'referencias': forms.Textarea(attrs={'class':'form-control'}),
         }

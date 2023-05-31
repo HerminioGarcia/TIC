@@ -12,31 +12,35 @@
       </div>
     </div>
     <div class="row report-inner-cards-wrapper">
-        La OMS define a la discapacidad como “alguna limitación o impedimento de la capacidad de llevar a cabo una actividad en la forma o dentro del margen que se considera normal para el ser humano.
-  </div>              
+        La OMS define a la discapacidad como alguna limitación o impedimento de la capacidad de llevar a cabo una actividad en la forma o dentro del margen que se considera normal para el ser humano.
+  </div>         
 {% endblock encabe %}
 
 {% block encabezado %}
-    Tipo de discapacidades
+    Lista de Discapacidades
 {% endblock encabezado %}
 
 {% block titulo %}
-    Tipo de las Discapacidades
+    Lista de las Discapacidades
 {% endblock titulo %}
 
 {% block contenido %}
     <table class="table">
         <thead>
             <tr>
-                <th>Nombre de la discapacidad</th>
-                <th>Opciones</th>
+                {% for grupo in request.user.groups.all %} 
+                    {% if 'Administrador' in grupo.name %}
+                    <th>Nombre de la discapacidad</th>
+                    <th>Opciones</th>
+                    {% endif %}
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
             {% for discapacidad in object_list  %}
                 <tr>
                     <td>
-                        Discapacidad {{discapacidad.nombreDisapacidad}}
+                        <a href="{% url 'discapacidadVista' discapacidad.id %}"> Discapacidad {{discapacidad.nombreDisapacidad}} </a>
                     </td>
                     <td>
                         {% for grupo in request.user.groups.all %} 
@@ -51,11 +55,6 @@
                                 </a>
                             {% endif %}
                         {% endfor %}
-                        <a class="btn btn-success" 
-                                    href="{% url 'editar_discapacidad' discapacidad.id %}">
-                                    Editar
-                                </a>
-                        
                     </td>
                 </tr>
             {% empty %}
@@ -67,5 +66,8 @@
             {% endfor %}
         </tbody>
     </table>
-    
+    <div>
+    <a href="{% url 'bienvenida'%}"> <- Regresar a la bienvenida</a><br>
+    <a href="{% url 'actividad_Lista' %}"> Ver la lista de actividades -> </a>
+    </div>
 {% endblock contenido %}

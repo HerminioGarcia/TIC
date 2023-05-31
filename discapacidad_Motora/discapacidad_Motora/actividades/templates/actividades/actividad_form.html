@@ -22,7 +22,11 @@ Se utilizaron estas actividades para los familiares,fomentando a un sano vinculo
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input class="btn btn-success" type="submit" value="Guardar">
+        {% for grupo in request.user.groups.all %} 
+            {% if 'Administrador' in grupo.name %}
+                <input class="btn btn-success" type="submit" value="Guardar">
+            {% endif %}
+        {% endfor %}
         <a class="btn btn-danger" href="{% url 'actividad_Lista' %}">Regresar</a>
 
     </form>

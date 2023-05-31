@@ -40,10 +40,7 @@
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">CAP-HDF</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <form class="search-form d-none d-md-block" action="#">
-              
-              
             </form>
-
             <li class="nav-item dropdown">
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
                 <a class="dropdown-item py-3">
@@ -96,6 +93,7 @@
                   <p class="mb-1 mt-3">{{request.user.username}}</p>
                   <p class="font-weight-light text-muted mb-0">{{request.user.email}}</p>
                 </div>
+
                 {% if user.datos.curp %}
                   <h3 class="dropdown-item">
                     <a href="{% url 'perfilEditar' %}" class="dropdown-item">Editar Perfil</a>
@@ -104,7 +102,7 @@
                   <h3 class="dropdown-item">
                     <a href="{% url 'perfil' %}" class="dropdown-item">Crear Perfil</a>
                   </h3>
-                {% endif %}
+                {% endif %} 
                 <a href="{% url 'logout' %}" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Cerrar sesion</a>
               </div>
               {% endif %}
@@ -149,6 +147,7 @@
               </a>
               <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'bienvenida'%}"> Bienvenida </a></li>
                   <li class="nav-item"> <a class="nav-link" href="{% url 'lista_Discapacidades' %}"> Tipo de discpacidades </a></li>
                   <li class="nav-item"> <a class="nav-link" href="{% url 'actividad_Lista' %}"> Actividades </a></li>
                   
@@ -197,10 +196,6 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-
-
-
-          
           <div class="content-wrapper">
             <div class="row">
               <div class="col-md-12 grid-margin">

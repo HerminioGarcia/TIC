@@ -1,0 +1,126 @@
+<style>
+    .centrado{
+        text-align:center;
+    }
+</style>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+<h1>¡BIENVENIDO A CAP-HDF!</h1>
+{% endblock encabezado %}
+
+{% block titulo %}
+BIENVENIDO A CAP-HDF
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="centrado">
+        <h3>DEBERIAMOS ESTAR ORGULLOSOS DE NUESTRAS DIFERENCIAS.<br>PORQUE, EN EL FONDO,<br>¿QUÉ ES SER NORMAL?<br>¿Y QUÉ ES SER DIFERENTE?<br> Lary león, periodista y gerente de la fundación Atresmedia</h3>
+    </div>
+
+{% endblock contenido %}
+
+
+{% block imagenes %}
+<div>
+    <br>
+        <img src="{% static 'images/imagJuanjo.PNG' %}" width="200" height="195" alt="imagJuanjo">
+        <img src="{% static 'images/imag2Juanjo.PNG' %}" width="230" height="195" alt="imag2Juanjo">
+    <br/>
+</div>
+
+{% endblock imagenes %}
+    
+{% block contenido2 %}
+
+<div>
+    <h5>
+        <br>
+        Es un sitio confiable para obtener información acerca de niños y niñas con discapacidades físicas. Podrá encontrar infografías, videos y dinámicas para así lograr tener un mayor acercamiento y mejorar la calidad de vida de su hijo o hija. 
+    </h5>
+</div>
+
+<div>
+    <h5>
+        <br>
+        ¡Gracias por su visita!
+    </h5>
+    <h3>
+        <br>
+        Objetivo General
+    </h3>
+    <h5>
+        <br>
+        Ayudar a padres que tienen algún hijo o
+        hija con alguna discapacidad fisica.
+    </h5>
+
+    <h3>
+        <br>
+        Objetivos Específicos
+    </h3>
+    <h5>
+        <br>
+        1.- Fortalecer la orientación a los padres con hijos que presentan discapacidad física.
+    </h5>
+    <h5>
+        <br>
+        2.- Contribuir a los padres al mejoramiento de la calidad de vida de niños con discapacidad.
+    </h5>
+    <h5>
+        <br>
+        3.- Brindar a los padres de familia herramientas que ayuden a encauzar
+        la crianza de niños con
+        discapacidad
+    </h5>
+    
+    <h3>
+        <br>Informacion recopilada:<br>
+        <a href="{% url 'lista_Discapacidades' %}"> - ¿Qué es la discapacidad? </a><br>
+        <a href="{% url 'actividad_Lista' %}"> - Actividades a realizar </a><br>
+    </h3>
+    <div id="grafica" style="min-width: 210px; height: 400px; margin: 0 auto;"></div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/exporting-data.js"></script>
+
+<script>
+    Highcharts.chart('grafica', {
+        lang:{
+            downloadCSV: "Descargar CSV",
+            downloadJPEG: "Descargar imagen JPEG",
+            downloadPDF: "Descargar PDF",
+            downloadPNG: "Descargar PNG",
+            downloadSVG: "Descargar SVG",
+            viewFullscreen: "Ver en pantalla completa",
+            printChart: "Imprimir grafica",
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Gráfica de actividades gustadas por usuarios'
+        },
+        xAxis: {
+            categories: {{ nombres_actividades|safe }}
+        },
+        yAxis: {
+            title: {
+                text: 'Número de likes'
+            }
+        },
+        plotOptions:{
+            column:{
+                pointPaddin: 0.2,
+                borderWidth: 0,
+            }
+        },
+        series: [{
+            name: 'Likes',
+            data: {{ num_likes|safe }}
+        }]
+    });
+</script>
+</div>
+{% endblock contenido2 %}

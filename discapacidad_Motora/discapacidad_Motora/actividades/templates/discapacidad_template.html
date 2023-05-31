@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+    Discapacidad {{nom_dis}}
+{% endblock encabezado %}
+    
+
+{% block titulo %}
+Discapacidad {{nom_dis}}
+{% endblock titulo %}
+
+{% block contenido %}
+    <div>
+    <h3>
+        ¿Qué es la discapacidad {{nom_dis}}?<br>
+    </h3>
+
+    {{discapacidad.que_es}}<br><br>
+    <img width="360" height="215" src="{{ MEDIA_URL }}{{ discapacidad.que_es_im.url }}" alt="Image"><br><br>
+
+    <h3>
+        ¿Qué se debe conocer sobre la discapacidad motora?<br>
+    </h3>
+    {{discapacidad.que_deve_conocer_familia|linebreaksbr}}<br><br>
+    <img width="360" height="215"  src="{{ MEDIA_URL }}{{ discapacidad.que_deve_im.url }}" alt="Image"><br><br>
+
+    <h3>
+        Recomendaciones:<br>
+    </h3>
+    {{ discapacidad.recomendaciones|linebreaksbr }}<br><br>
+    <img width="360" height="215" src="{{ MEDIA_URL }}{{ discapacidad.recomendaciones_im.url }}" alt="Image"><br><br>
+
+    <h3>
+        Documentacion:<br>
+    </h3>
+    <iframe src="{{ MEDIA_URL }}{{ discapacidad.documentaciones.url }}" width="100%" height="500px"></iframe>
+    <a href="{{ discapacidad.documentaciones.url }}">{{discapacidad.documentaciones}} </a><br><br>
+    <h3>
+        Referencias:<br>
+    </h3>
+    {{discapacidad.referencias|linebreaksbr}}<br><br>
+
+    <a href="{% url 'lista_Discapacidades' %}"> <- Volver a la lista de discapacidades </a><br>
+    <a href="{% url 'actividad_Lista' %}"> Ver la lista de actividades -> </a>
+
+
+    
+{% endblock contenido %}

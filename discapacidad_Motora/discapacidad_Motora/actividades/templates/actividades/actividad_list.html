@@ -13,12 +13,12 @@
       </div>
     </div>
     <div class="row report-inner-cards-wrapper">
-        Se utilizarán estas actividades para los familiares, con ellas se intentará fomentar un ano vínculo.
+        Estas actividades son para trabajar en familia, con ellas se intentará crear o fortalecer el vínculo familiar.
   </div>              
 {% endblock encabe %}
 
 {% block encabezado %}
-    Actividades
+    Lista de Actividades
 {% endblock encabezado %}
 
 {% block titulo %}
@@ -29,19 +29,24 @@ Actividades
     <table class="table">
         <thead>
             <tr>
+                {% for grupo in request.user.groups.all %}
                 <th>Nombre de la Actividades</th>
-                <th>Opciones</th>
+                    {% if 'Administrador' in grupo.name %}
+                    <th>Opciones</th>
+                    {% endif %}
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
             {% for actividad in object_list  %}
                 <tr>
                     <td>
-                        {{actividad.nombreActividad}}
+                        <a href="{% url 'atividadVista' actividad.id %}"> {{actividad.nombreActividad}} </a>
                     </td>
                     <td>
-
-                        <a class="btn btn-danger" 
+                        {% for grupo in request.user.groups.all %} 
+                            {% if 'Administrador' in grupo.name %}
+                            <a class="btn btn-danger" 
                             href="{% url 'eliminar_actividad' actividad.id %}">
                             Eliminar
                         </a>
@@ -49,6 +54,9 @@ Actividades
                             href="{% url 'editar_actividad' actividad.id %}">
                             Editar
                         </a>
+                            {% endif %}
+                        {% endfor %}
+                        
                     </td>
                 </tr>
             {% empty %}
@@ -59,6 +67,6 @@ Actividades
                 </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table><a href="{% url 'bienvenida'%}"> <- Regresar a la bienvenida</a><br>
     
 {% endblock contenido %}

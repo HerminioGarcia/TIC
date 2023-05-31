@@ -1,6 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .validadores import documentos_validador,imagen_validador
-
 
 
 class Discapacidades_motoras(models.Model):
@@ -25,6 +25,9 @@ class Actividad(models.Model):
     competencias_desarrollar=models.TextField("Competencias a desarrollar",null=True,blank=True)
     descripción_actividad=models.TextField("Descripción de la actividad")
     url = models.URLField(max_length = 500,null=True,blank=True)
-    referencias=models.TextField("Referencias")
+    referencias=models.FileField(upload_to = 'Documentos/', null=True,blank=True,validators=[documentos_validador])
+    likes= models.ManyToManyField(User, null=True,blank=True)
     def __str__(self):
         return f"{self.nombreActividad}"
+    def cantidad_likes(self):
+        return self.likes.count()
